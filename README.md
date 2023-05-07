@@ -1,6 +1,9 @@
 # Few-shot Event Detection: An Empirical Study and a Unified View
 This is the implementation of the paper [Few-shot Event Detection: An Empirical Study and a Unified View](https://arxiv.org/abs/2305.01901). ACL'2023.
 
+## Data
+See details in [dataset_processing](./dataset_processing/) pages
+
 ## Code
 Coming soon.
 
