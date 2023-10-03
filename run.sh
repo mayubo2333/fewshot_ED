@@ -12,6 +12,11 @@ export OUT_PATH=./outputs/$DATA/${K}-shot/${idx}
 mkdir -p $OUT_PATH
 echo $OUT_PATH
 
+queue_size=8192
+if [ "$K" -eq 2 ] && { [ "$DATA" == 'ACE' ] || [ "$DATA" == 'ERE' ]; }; then
+    queue_size=2048
+fi
+
 srun -p priority --mpi=pmi2 --gres=gpu:1 -n1 --ntasks-per-node=1 --kill-on-bad-exit=1 \
     python main.py \
         --output_dir $OUT_PATH \
@@ -27,6 +32,8 @@ srun -p priority --mpi=pmi2 --gres=gpu:1 -n1 --ntasks-per-node=1 --kill-on-bad-e
         --use_normalize \
         --learning_rate 1e-4 \
         --dataset_type $DATA \
-        --queue_size 8192 \
+        --queue_size $queue_size \
         --start_eval_steps 50 \
+        --max_seq_length 192 \
+        --fp_16 \
         --drop_none_event 
