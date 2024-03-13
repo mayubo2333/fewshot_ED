@@ -17,23 +17,22 @@ if [ "$K" -eq 2 ] && { [ "$DATA" == 'ACE' ] || [ "$DATA" == 'ERE' ]; }; then
     queue_size=2048
 fi
 
-srun -p priority --mpi=pmi2 --gres=gpu:1 -n1 --ntasks-per-node=1 --kill-on-bad-exit=1 \
-    python main.py \
-        --output_dir $OUT_PATH \
-        --train_file $TRAIN_FILE \
-        --dev_file $VALID_FILE \
-        --test_file $TEST_FILE \
-        --label_dict_path $LABEL_DICT_PATH \
-        --max_steps 200 \
-        --batch_size 128 \
-        --logging_steps 10 \
-        --eval_steps 10 \
-        --use_label_semantics \
-        --use_normalize \
-        --learning_rate 1e-4 \
-        --dataset_type $DATA \
-        --queue_size $queue_size \
-        --start_eval_steps 50 \
-        --max_seq_length 192 \
-        --fp_16 \
-        --drop_none_event 
+python main.py \
+    --output_dir $OUT_PATH \
+    --train_file $TRAIN_FILE \
+    --dev_file $VALID_FILE \
+    --test_file $TEST_FILE \
+    --label_dict_path $LABEL_DICT_PATH \
+    --max_steps 200 \
+    --batch_size 128 \
+    --logging_steps 10 \
+    --eval_steps 10 \
+    --use_label_semantics \
+    --use_normalize \
+    --learning_rate 1e-4 \
+    --dataset_type $DATA \
+    --queue_size $queue_size \
+    --start_eval_steps 50 \
+    --max_seq_length 192 \
+    --fp_16 \
+    --drop_none_event 
